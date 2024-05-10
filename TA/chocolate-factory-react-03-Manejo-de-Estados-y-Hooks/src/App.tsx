@@ -1,18 +1,34 @@
-import './App.css'
-import CandyCreator from "./components/CandyCreator.tsx";
-import {Card} from "antd";
+import React, { useState } from 'react';
 
-function App() {
+type CounterState = {
+  production: number;
+  profit: number;
+};
+
+const Counter: React.FC = () => {
+  const [state, setState] = useState<CounterState>({
+    production: 0,
+    profit: 0,
+  });
+
+  const increaseProduction = () => {
+    const newProduction = state.production + 1;
+    const newProfit = newProduction * 10;
+
+    setState({
+      ...state,
+      production: newProduction,
+      profit: newProfit,
+    });
+  };
 
   return (
-    <>
+    <div>
+      <h2>Production: {state.production}</h2>
+      <h2>Profit: {state.profit}</h2>
+      <button onClick={increaseProduction}>Increase Production</button>
+    </div>
+  );
+};
 
-        <Card title="Candy Creator" bordered={false} style={{ width: 300 }}>
-            <CandyCreator />
-        </Card>
-
-    </>
-  )
-}
-
-export default App
+export default Counter;
